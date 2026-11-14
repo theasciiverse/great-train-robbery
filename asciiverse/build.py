@@ -25,6 +25,7 @@ def main():
     inline = [m for m in re.findall(r"<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>", html, re.I | re.S)]
     source = []
     for src in scripts:
+        src = src.split("?")[0]
         source.append("// " + src + "\n" + (ROOT / src).read_text(encoding="utf-8"))
     source.extend(conf.get("inline", inline))
     bm = re.search(r"<body([^>]*)>(.*)</body>", html, re.I | re.S)
